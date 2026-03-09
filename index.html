@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İyi ki Doğdun Aşkım ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+color:white;
+text-align:center;
+overflow-x:hidden;
+background:black;
+}
+
+/* Yıldızlı arka plan */
+.space{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+overflow:hidden;
+z-index:-2;
+}
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+animation:starMove 5s linear infinite;
+}
+
+@keyframes starMove{
+0%{transform:translateY(-10px);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(100vh);opacity:0;}
+}
+
+/* Bölümler */
+section{padding:80px 20px;}
+
+/* Galeri */
+.slider{
+display:flex;
+overflow-x:auto;
+gap:10px;
+padding:20px;
+}
+.slider img{
+width:200px;
+height:300px;
+object-fit:cover;
+border-radius:20px;
+}
+
+/* Mektup */
+.letter{
+max-width:600px;
+margin:auto;
+font-size:18px;
+line-height:1.6;
+padding:20px 0;
+}
+
+/* Kalpler */
+.heart{
+position:fixed;
+pointer-events:none;
+animation:heart 1.5s forwards;
+}
+@keyframes heart{
+0%{transform:scale(0);opacity:1;}
+100%{transform:translateY(-120px) scale(2);opacity:0;}
+}
+
+/* Buton */
+button{
+padding:15px 30px;
+font-size:18px;
+border:none;
+border-radius:30px;
+background:#ff4d6d;
+color:white;
+cursor:pointer;
+}
+
+/* “Seni Seviyorum” animasyonu */
+#loveMessage{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+font-size:50px;
+color:#ff4d6d;
+transition:1s;
+}
+#loveMessage.show{
+transform:translate(-50%,-50%) scale(1.2);
+}
+</style>
+</head>
+<body>
+
+<!-- Müzik -->
+<audio autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Yıldızlı arka plan -->
+<div class="space"></div>
+
+<!-- Başlık -->
+<section>
+<h1>İyi ki Doğdun Aşkım 🎂</h1>
+<p>Hayatıma girdiğin için çok mutluyum ❤️</p>
+<button onclick="confetti()">Sürprizi Aç 🎆</button>
+<button onclick="showLove()">Seni Seviyorum ❤️</button>
+</section>
+
+<!-- Foto Slider -->
+<section>
+<h2>Bizim Anılarımız 📸</h2>
+<div class="slider">
+<img src="foto1.jpg">
+<img src="foto2.jpg">
+<img src="foto3.jpg">
+<img src="foto4.jpg">
+</div>
+</section>
+
+<!-- Aşk Mektubu -->
+<section class="letter">
+<h2>Sana Bir Mektup 💌</h2>
+<p>
+Sen benim en güzel tesadüfümsün.<br>
+Gülüşün hayatımı aydınlatıyor.<br>
+Seninle geçirdiğim her an benim için çok değerli.<br>
+Umarım birlikte daha nice doğum günleri kutlarız.<br>
+İyi ki varsın ❤️
+</p>
+</section>
+
+<!-- “Seni Seviyorum” animasyonu -->
+<div id="loveMessage">Seni Seviyorum ❤️</div>
+
+<script>
+// Ekrana dokununca kalpler
+document.addEventListener("click",(e)=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=e.clientX+"px";
+heart.style.top=e.clientY+"px";
+heart.style.fontSize="24px";
+document.body.appendChild(heart);
+setTimeout(()=>{heart.remove();},1500);
+});
+
+// Konfeti patlaması
+function confetti(){
+for(let i=0;i<150;i++){
+let el=document.createElement("div");
+el.innerHTML=Math.random()>0.5?"🎉":"❤️";
+el.style.position="fixed";
+el.style.left="50%";
+el.style.top="50%";
+el.style.fontSize="20px";
+document.body.appendChild(el);
+let x=(Math.random()-0.5)*600;
+let y=(Math.random()-0.5)*600;
+let frame=0;
+let anim=setInterval(()=>{
+frame++;
+el.style.transform=`translate(${x*frame/30}px,${y*frame/30}px)`;
+el.style.opacity=1-frame/30;
+if(frame>30){clearInterval(anim);el.remove();}
+},20);
+}
+}
+
+// “Seni Seviyorum” animasyonu
+function showLove(){
+let msg=document.getElementById("loveMessage");
+msg.classList.add("show");
+}
+
+// 3D yıldızlar
+for(let i=0;i<150;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.left=Math.random()*100+"vw";
+star.style.animationDuration=Math.random()*5+3+"s";
+document.querySelector(".space").appendChild(star);
+}
+</script>
+
+</body>
+</html>
